@@ -4,8 +4,6 @@ Copied from ml-agents/mlagents/trainers/tests/simple_test_envs.py
 Modified the env so that it doesn't automatically reset and respawn agent in order to pass
 pettingzoo api tests, since current PZ api test doesn't allow spawning new agents.
 """
-
-import random
 from typing import Dict, List, Any, Tuple
 import numpy as np
 
@@ -22,6 +20,7 @@ from mlagents_envs.base_env import (
 )
 from mlagents_envs.side_channel.side_channel_manager import SideChannelManager
 from dummy_config import create_observation_specs_with_shapes
+import secrets
 
 OBS_SIZE = 1
 VIS_OBS_SIZE = (20, 20, 3)
@@ -90,7 +89,7 @@ class SimpleEnvironment(BaseEnv):
             var_len_obs_size,
             action_sizes,
         )
-        self.random = random.Random(str(seed))
+        self.random = secrets.SystemRandom().Random(str(seed))
 
         self.goal: Dict[str, int] = {}
         self.action = {}
