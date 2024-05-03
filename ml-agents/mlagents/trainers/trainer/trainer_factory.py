@@ -114,7 +114,7 @@ class TrainerFactory:
 
         except KeyError:
             raise TrainerConfigError(
-                f"The trainer config contains an unknown trainer type "
+                "The trainer config contains an unknown trainer type "
                 f"{trainer_settings.trainer_type} for brain {brain_name}"
             )
 

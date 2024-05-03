@@ -139,8 +139,8 @@ def package_to_hub(
     """
     logger.info(
         f"This function will create a model card and upload your {run_id} "
-        f"into HuggingFace Hub. This is a work in progress: If you encounter a bug, "
-        f"please send open an issue"
+        "into HuggingFace Hub. This is a work in progress: If you encounter a bug, "
+        "please send open an issue"
     )
 
     _, repo_name = repo_id.split("/")

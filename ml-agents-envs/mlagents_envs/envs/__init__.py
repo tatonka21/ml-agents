@@ -9,7 +9,7 @@ for key in default_registry:
     if not env_name.isidentifier():
         logger.warning(
             f"Environment id {env_name} can not be registered since it is"
-            f"not a valid identifier name."
+            "not a valid identifier name."
         )
         continue
     locals()[env_name] = PettingZooEnvFactory(key)

@@ -551,7 +551,7 @@ class EnvironmentParameterSettings:
             if index == num_lessons - 1 and lesson.completion_criteria is not None:
                 warnings.warn(
                     f"Your final lesson definition contains completion_criteria for {parameter_name}."
-                    f"It will be ignored.",
+                    "It will be ignored.",
                     TrainerConfigWarning,
                 )
 
@@ -749,7 +749,7 @@ class TrainerSettings(ExportableSettings):
             else:
                 logger.warning(
                     f"Behavior name {key} does not match any behaviors specified "
-                    f"in the trainer configuration file. A default configuration will be used."
+                    "in the trainer configuration file. A default configuration will be used."
                 )
                 self[key] = TrainerSettings()
             return self[key]
@@ -791,7 +791,7 @@ class CheckpointSettings:
             if self.initialize_from is not None:
                 logger.warning(
                     f"Both 'resume' and 'initialize_from={self.initialize_from}' are set!"
-                    f" Current run will be resumed ignoring initialization."
+                    " Current run will be resumed ignoring initialization."
                 )
                 self.initialize_from = parser.get_default("initialize_from")
         elif "initialize_from" in _non_default_args:
@@ -805,7 +805,7 @@ class CheckpointSettings:
             # no cli args but both are set in yaml file
             logger.warning(
                 f"Both 'resume' and 'initialize_from={self.initialize_from}' are set in yaml file!"
-                f" Current run will be resumed ignoring initialization."
+                " Current run will be resumed ignoring initialization."
             )
             self.initialize_from = parser.get_default("initialize_from")
 

@@ -81,9 +81,9 @@ class UnityEnvironment(BaseEnv):
     @staticmethod
     def _raise_version_exception(unity_com_ver: str) -> None:
         raise UnityEnvironmentException(
-            f"The communication API version is not compatible between Unity and python. "
+            "The communication API version is not compatible between Unity and python. "
             f"Python API: {UnityEnvironment.API_VERSION}, Unity API: {unity_com_ver}.\n "
-            f"Please find the versions that work best together from our release page.\n"
+            "Please find the versions that work best together from our release page.\n"
             "https://github.com/Unity-Technologies/ml-agents/releases"
         )
 
@@ -138,7 +138,7 @@ class UnityEnvironment(BaseEnv):
                 " capabilities. Please be sure upgrade the Unity Package to a version that is compatible with this "
                 "python package.\n"
                 f"Python package version: {python_package_ver}, C# package version: {unity_package_ver}"
-                f"Please find the versions that work best together from our release page.\n"
+                "Please find the versions that work best together from our release page.\n"
                 "https://github.com/Unity-Technologies/ml-agents/releases"
             )
 
@@ -221,7 +221,7 @@ class UnityEnvironment(BaseEnv):
         else:
             logger.info(
                 f"Listening on port {self._port}. "
-                f"Start training by pressing the Play button in the Unity Editor."
+                "Start training by pressing the Play button in the Unity Editor."
             )
         self._loaded = True
 
@@ -361,7 +361,7 @@ class UnityEnvironment(BaseEnv):
         if behavior_name not in self._env_specs:
             raise UnityActionException(
                 f"The group {behavior_name} does not correspond to an existing "
-                f"agent group in the environment"
+                "agent group in the environment"
             )
 
     def set_actions(self, behavior_name: BehaviorName, action: ActionTuple) -> None:

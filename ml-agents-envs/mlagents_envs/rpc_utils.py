@@ -148,7 +148,7 @@ def _process_images_mapping(image_arrays, mappings):
 
     if len(mappings) != len(image_arrays):
         raise UnityObservationException(
-            f"Compressed observation and its mapping had different number of channels - "
+            "Compressed observation and its mapping had different number of channels - "
             f"observation had {len(image_arrays)} channels but its mapping had {len(mappings)} channels"
         )
     if len({m for m in mappings if m > -1}) != max(mappings) + 1:
@@ -157,7 +157,7 @@ def _process_images_mapping(image_arrays, mappings):
         )
     if max(mappings) >= len(image_arrays):
         raise UnityObservationException(
-            f"Invalid Compressed Channel Mapping: the mapping has index larger than the total "
+            "Invalid Compressed Channel Mapping: the mapping has index larger than the total "
             f"number of channels in observation - mapping index {max(mappings)} is"
             f"invalid for input observation with {len(image_arrays)} channels."
         )
@@ -239,7 +239,7 @@ def _observation_to_np_array(
         # Compare decompressed image size to observation shape and make sure they match
         if list(obs.shape) != list(img.shape):
             raise UnityObservationException(
-                f"Decompressed observation did not have the expected shape - "
+                "Decompressed observation did not have the expected shape - "
                 f"decompressed had {img.shape} but expected {obs.shape}"
             )
         return img

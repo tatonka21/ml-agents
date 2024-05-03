@@ -124,7 +124,7 @@ def launch_executable(file_name: str, args: List[str]) -> subprocess.Popen:
         except PermissionError as perm:
             # This is likely due to missing read or execute permissions on file.
             raise UnityEnvironmentException(
-                f"Error when trying to launch environment - make sure "
-                f"permissions are set correctly. For example "
+                "Error when trying to launch environment - make sure "
+                "permissions are set correctly. For example "
                 f'"chmod -R 755 {launch_string}"'
             ) from perm

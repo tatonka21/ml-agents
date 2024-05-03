@@ -74,7 +74,7 @@ class SideChannelManager:
             for _sc in side_channels:
                 if _sc.channel_id in side_channels_dict:
                     raise UnityEnvironmentException(
-                        f"There cannot be two side channels with "
+                        "There cannot be two side channels with "
                         f"the same channel id {_sc.channel_id}."
                     )
                 side_channels_dict[_sc.channel_id] = _sc

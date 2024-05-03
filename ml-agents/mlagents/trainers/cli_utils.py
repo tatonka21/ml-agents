@@ -327,7 +327,7 @@ def load_config(config_path: str) -> Dict[str, Any]:
     except UnicodeDecodeError:
         raise TrainerConfigError(
             f"There was an error decoding Config file from {config_path}. "
-            f"Make sure your file is save using UTF-8"
+            "Make sure your file is save using UTF-8"
         )
 
 
