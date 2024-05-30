@@ -11,6 +11,7 @@ from mlagents.trainers.settings import (
     ConstantSettings,
     CompletionCriteriaSettings,
 )
+import math
 
 
 test_sampler_config_yaml = """
@@ -31,7 +32,7 @@ def test_sampler_conversion():
     assert len(lessons) == 1
     assert lessons[0].completion_criteria is None
     assert isinstance(lessons[0].value, UniformSettings)
-    assert lessons[0].value.min_value == 0.5
+    assert math.isclose(lessons[0].value.min_value, 0.5, rel_tol=1e-09, abs_tol=0.0)
     assert lessons[0].value.max_value == 10
 
 
@@ -105,7 +106,7 @@ def test_curriculum_conversion():
         == CompletionCriteriaSettings.MeasureType.REWARD
     )
     assert lesson.completion_criteria.behavior == "fake_behavior"
-    assert lesson.completion_criteria.threshold == 30.0
+    assert math.isclose(lesson.completion_criteria.threshold, 30.0, rel_tol=1e-09, abs_tol=0.0)
     assert lesson.completion_criteria.min_lesson_length == 100
     assert lesson.completion_criteria.require_reset
     assert isinstance(lesson.value, ConstantSettings)
@@ -118,7 +119,7 @@ def test_curriculum_conversion():
         == CompletionCriteriaSettings.MeasureType.REWARD
     )
     assert lesson.completion_criteria.behavior == "fake_behavior"
-    assert lesson.completion_criteria.threshold == 60.0
+    assert math.isclose(lesson.completion_criteria.threshold, 60.0, rel_tol=1e-09, abs_tol=0.0)
     assert lesson.completion_criteria.min_lesson_length == 100
     assert not lesson.completion_criteria.require_reset
     assert isinstance(lesson.value, ConstantSettings)

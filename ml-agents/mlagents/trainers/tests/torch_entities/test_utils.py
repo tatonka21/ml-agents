@@ -7,6 +7,7 @@ from mlagents.trainers.torch_entities.utils import ModelUtils
 from mlagents.trainers.exception import UnityTrainerException
 from mlagents.trainers.torch_entities.encoders import VectorInput
 from mlagents.trainers.tests.dummy_config import create_observation_specs_with_shapes
+import math
 
 
 def test_min_visual_size():
@@ -100,7 +101,7 @@ def test_decayed_value():
     param = ModelUtils.DecayedValue(ScheduleType.CONSTANT, 1.0, 0.2, test_steps[-1])
     for _step in test_steps:
         _param = param.get_value(_step)
-        assert _param == 1.0
+        assert math.isclose(_param, 1.0, rel_tol=1e-09, abs_tol=0.0)
 
     test_results = [1.0, 0.6444, 0.2]
     # Test linear decay
@@ -179,22 +180,22 @@ def test_masked_mean():
     test_input = torch.tensor([1, 2, 3, 4, 5])
     masks = torch.ones_like(test_input).bool()
     mean = ModelUtils.masked_mean(test_input, masks=masks)
-    assert mean == 3.0
+    assert math.isclose(mean, 3.0, rel_tol=1e-09, abs_tol=0.0)
 
     masks = torch.tensor([False, False, True, True, True])
     mean = ModelUtils.masked_mean(test_input, masks=masks)
-    assert mean == 4.0
+    assert math.isclose(mean, 4.0, rel_tol=1e-09, abs_tol=0.0)
 
     # Make sure it works if all masks are off
     masks = torch.tensor([False, False, False, False, False])
     mean = ModelUtils.masked_mean(test_input, masks=masks)
-    assert mean == 0.0
+    assert math.isclose(mean, 0.0, rel_tol=1e-09, abs_tol=0.0)
 
     # Make sure it works with 2d arrays of shape (mask_length, N)
     test_input = torch.tensor([1, 2, 3, 4, 5]).repeat(2, 1).T
     masks = torch.tensor([False, False, True, True, True])
     mean = ModelUtils.masked_mean(test_input, masks=masks)
-    assert mean == 4.0
+    assert math.isclose(mean, 4.0, rel_tol=1e-09, abs_tol=0.0)
 
 
 def test_soft_update():

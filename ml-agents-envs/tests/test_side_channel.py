@@ -19,6 +19,7 @@ from mlagents_envs.exception import (
     UnitySideChannelException,
     UnityCommunicationException,
 )
+import math
 
 
 class IntChannel(SideChannel):
@@ -57,7 +58,7 @@ def test_float_properties():
     SideChannelManager([receiver]).process_side_channel_message(data)
 
     val = receiver.get_property("prop1")
-    assert val == 1.0
+    assert math.isclose(val, 1.0, rel_tol=1e-09, abs_tol=0.0)
     val = receiver.get_property("prop2")
     assert val is None
     sender.set_property("prop2", 2.0)
@@ -66,14 +67,14 @@ def test_float_properties():
     SideChannelManager([receiver]).process_side_channel_message(data)
 
     val = receiver.get_property("prop1")
-    assert val == 1.0
+    assert math.isclose(val, 1.0, rel_tol=1e-09, abs_tol=0.0)
     val = receiver.get_property("prop2")
-    assert val == 2.0
+    assert math.isclose(val, 2.0, rel_tol=1e-09, abs_tol=0.0)
     assert len(receiver.list_properties()) == 2
     assert "prop1" in receiver.list_properties()
     assert "prop2" in receiver.list_properties()
     val = sender.get_property("prop1")
-    assert val == 1.0
+    assert math.isclose(val, 1.0, rel_tol=1e-09, abs_tol=0.0)
 
     assert receiver.get_property_dict_copy() == {"prop1": 1.0, "prop2": 2.0}
     assert receiver.get_property_dict_copy() == sender.get_property_dict_copy()
@@ -138,11 +139,11 @@ def test_message_float32():
     msg_in = IncomingMessage(msg_out.buffer)
     read_val = msg_in.read_float32()
     # These won't be exactly equal in general, since python floats are 64-bit.
-    assert val == read_val
+    assert math.isclose(val, read_val, rel_tol=1e-09, abs_tol=0.0)
 
     # Test reading with defaults
-    assert 0.0 == msg_in.read_float32()
-    assert val == msg_in.read_float32(default_value=val)
+    assert math.isclose(0.0, msg_in.read_float32(), rel_tol=1e-09, abs_tol=0.0)
+    assert math.isclose(val, msg_in.read_float32(default_value=val), rel_tol=1e-09, abs_tol=0.0)
 
 
 def test_message_string():
@@ -196,7 +197,7 @@ def test_engine_configuration():
     message = IncomingMessage(receiver.get_and_clear_received_messages()[0])
     message.read_int32()
     time_scale = message.read_float32()
-    assert time_scale == sent_time_scale
+    assert math.isclose(time_scale, sent_time_scale, rel_tol=1e-09, abs_tol=0.0)
 
     with pytest.raises(UnitySideChannelException):
         sender.set_configuration_parameters(width=None, height=42)

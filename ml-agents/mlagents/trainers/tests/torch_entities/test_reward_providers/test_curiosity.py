@@ -13,6 +13,7 @@ from mlagents.trainers.tests.torch_entities.test_reward_providers.utils import (
 )
 from mlagents.trainers.torch_entities.utils import ModelUtils
 from mlagents.trainers.tests.dummy_config import create_observation_specs_with_shapes
+import math
 
 SEED = [42]
 
@@ -36,7 +37,7 @@ def test_construction(behavior_spec: BehaviorSpec) -> None:
     curiosity_settings = CuriositySettings(32, 0.01)
     curiosity_settings.strength = 0.1
     curiosity_rp = CuriosityRewardProvider(behavior_spec, curiosity_settings)
-    assert curiosity_rp.strength == 0.1
+    assert math.isclose(curiosity_rp.strength, 0.1, rel_tol=1e-09, abs_tol=0.0)
     assert curiosity_rp.name == "Curiosity"
 
 

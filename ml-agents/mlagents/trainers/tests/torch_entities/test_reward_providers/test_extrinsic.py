@@ -11,6 +11,7 @@ from mlagents.trainers.tests.torch_entities.test_reward_providers.utils import (
     create_agent_buffer,
 )
 from mlagents.trainers.tests.dummy_config import create_observation_specs_with_shapes
+import math
 
 
 ACTIONSPEC_CONTINUOUS = ActionSpec.create_continuous(5)
@@ -32,7 +33,7 @@ def test_construction(behavior_spec: BehaviorSpec) -> None:
     settings = RewardSignalSettings()
     settings.gamma = 0.2
     extrinsic_rp = ExtrinsicRewardProvider(behavior_spec, settings)
-    assert extrinsic_rp.gamma == 0.2
+    assert math.isclose(extrinsic_rp.gamma, 0.2, rel_tol=1e-09, abs_tol=0.0)
     assert extrinsic_rp.name == "Extrinsic"
 
 

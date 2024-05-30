@@ -28,6 +28,7 @@ from mlagents.trainers.settings import TrainerSettings
 
 from mlagents_envs.base_env import ActionSpec, BehaviorSpec
 from mlagents.trainers.buffer import BufferKey, RewardSignalUtil
+import math
 
 
 @pytest.fixture
@@ -177,7 +178,7 @@ def test_poca_get_value_estimates(dummy_config, rnn, visual, discrete):
     )
     for key, val in value_next.items():
         assert type(key) is str
-        assert val == 0.0
+        assert math.isclose(val, 0.0, rel_tol=1e-09, abs_tol=0.0)
 
     # Check if we ignore terminal states properly
     optimizer.reward_signals["extrinsic"].use_terminal_states = False
@@ -195,7 +196,7 @@ def test_poca_get_value_estimates(dummy_config, rnn, visual, discrete):
     )
     for key, val in value_next.items():
         assert type(key) is str
-        assert val != 0.0
+        assert not math.isclose(val, 0.0, rel_tol=1e-09, abs_tol=0.0)
 
 
 @pytest.mark.parametrize("discrete", [True, False], ids=["discrete", "continuous"])

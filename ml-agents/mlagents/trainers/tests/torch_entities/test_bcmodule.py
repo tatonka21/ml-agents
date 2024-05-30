@@ -11,6 +11,7 @@ from mlagents.trainers.settings import (
     BehavioralCloningSettings,
     NetworkSettings,
 )
+import math
 
 
 def create_bc_module(mock_behavior_specs, bc_settings, use_rnn, tanhresample):
@@ -108,7 +109,7 @@ def test_bcmodule_linear_lr_update(is_sac):
     bc_module.policy.get_current_step = MagicMock(return_value=10)
     old_learning_rate = bc_module.current_lr
     _ = bc_module.update()
-    assert old_learning_rate - 0.00003 == pytest.approx(bc_module.current_lr, abs=0.01)
+    assert math.isclose(old_learning_rate - 0.00003, pytest.approx(bc_module.current_lr, abs=0.01), rel_tol=1e-09, abs_tol=0.0)
 
 
 # Test with RNN

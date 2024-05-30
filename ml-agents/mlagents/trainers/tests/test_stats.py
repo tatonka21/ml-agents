@@ -17,6 +17,7 @@ from mlagents.trainers.stats import (
 )
 
 from mlagents.trainers.env_manager import AgentManager
+import math
 
 
 def test_stat_reporter_add_summary_write():
@@ -49,8 +50,8 @@ def test_stat_reporter_add_summary_write():
 
     assert statssummary1.num == 10
     assert statssummary2.num == 10
-    assert statssummary1.mean == 4.5
-    assert statssummary2.mean == 4.5
+    assert math.isclose(statssummary1.mean, 4.5, rel_tol=1e-09, abs_tol=0.0)
+    assert math.isclose(statssummary2.mean, 4.5, rel_tol=1e-09, abs_tol=0.0)
     assert statssummary1.std == pytest.approx(2.9, abs=0.1)
     assert statssummary2.std == pytest.approx(2.9, abs=0.1)
 
