@@ -4,6 +4,7 @@ import subprocess
 import yaml
 from sys import platform
 from typing import List, Optional, Mapping
+from security import safe_command
 
 
 def get_unity_executable_path():
@@ -83,7 +84,7 @@ def run_standalone_build(
     print(f"{' '.join(test_args)} ...")
 
     timeout = 30 * 60  # 30 minutes, just in case
-    res: subprocess.CompletedProcess = subprocess.run(test_args, timeout=timeout)
+    res: subprocess.CompletedProcess = safe_command.run(subprocess.run, test_args, timeout=timeout)
 
     # Copy the default build name into the artifacts folder.
     if output_path is None and res.returncode == 0:
@@ -168,7 +169,7 @@ def checkout_csharp_version(csharp_version):
     for csharp_dir in csharp_dirs:
         subprocess.check_call(f"rm -rf {csharp_dir}", shell=True)
         # Allow the checkout to fail, since the extensions folder isn't availabe in 1.0.0
-        subprocess.call(f"git checkout {csharp_tag} -- {csharp_dir}", shell=True)
+        safe_command.run(subprocess.call, f"git checkout {csharp_tag} -- {csharp_dir}", shell=True)
 
 
 def undo_git_checkout():
