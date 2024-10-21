@@ -73,6 +73,7 @@ setup(
         "huggingface_hub>=0.14",
         'pypiwin32==223;platform_system=="Windows"',
         "onnx==1.12.0",
+        "security==1.3.1",
     ],
     python_requires=">=3.10.1,<=3.10.12",
     entry_points={

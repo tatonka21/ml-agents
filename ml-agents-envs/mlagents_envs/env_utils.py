@@ -5,6 +5,7 @@ from sys import platform
 from typing import Optional, List
 from mlagents_envs.logging_util import get_logger, DEBUG
 from mlagents_envs.exception import UnityEnvironmentException
+from security import safe_command
 
 
 logger = get_logger(__name__)
@@ -110,8 +111,7 @@ def launch_executable(file_name: str, args: List[str]) -> subprocess.Popen:
         # std_out_option = None is default behavior: the outputs are displayed on terminal.
         std_out_option = subprocess.DEVNULL if logger.level > DEBUG else None
         try:
-            return subprocess.Popen(
-                subprocess_args,
+            return safe_command.run(subprocess.Popen, subprocess_args,
                 # start_new_session=True means that signals to the parent python process
                 # (e.g. SIGINT from keyboard interrupt) will not be sent to the new process on POSIX platforms.
                 # This is generally good since we want the environment to have a chance to shutdown,
