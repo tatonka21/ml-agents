@@ -1,4 +1,3 @@
-import random
 from typing import Dict, List, Any, Tuple
 import numpy as np
 
@@ -18,6 +17,7 @@ from mlagents_envs.communicator_objects.agent_info_action_pair_pb2 import (
     AgentInfoActionPairProto,
 )
 from mlagents.trainers.tests.dummy_config import create_observation_specs_with_shapes
+import secrets
 
 OBS_SIZE = 1
 VIS_OBS_SIZE = (3, 20, 20)
@@ -85,7 +85,7 @@ class SimpleEnvironment(BaseEnv):
             var_len_obs_size,
             action_sizes,
         )
-        self.random = random.Random(str(seed))
+        self.random = secrets.SystemRandom().Random(str(seed))
 
         self.goal: Dict[str, int] = {}
         self.action = {}
