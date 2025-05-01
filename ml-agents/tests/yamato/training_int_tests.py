@@ -16,6 +16,7 @@ from .yamato_utils import (
     checkout_csharp_version,
     undo_git_checkout,
 )
+from security import safe_command
 
 
 def run_training(python_version: str, csharp_version: str) -> bool:
@@ -90,7 +91,7 @@ def run_training(python_version: str, csharp_version: str) -> bool:
         log_output_path,
     ]
 
-    res = subprocess.run(mla_learn_cmd)
+    res = safe_command.run(subprocess.run, mla_learn_cmd)
 
     # Save models as artifacts (only if we're using latest python and C#)
     if csharp_version is None and python_version is None:
@@ -150,7 +151,7 @@ def run_inference(env_path: str, output_path: str, model_extension: str) -> bool
         str(model_override_timeout),
     ]
     print(f"Starting inference with args {' '.join(args)}")
-    res = subprocess.run(args, timeout=process_timeout)
+    res = safe_command.run(subprocess.run, args, timeout=process_timeout)
     end_time = time.time()
     if res.returncode != 0:
         print("Error running inference!")
